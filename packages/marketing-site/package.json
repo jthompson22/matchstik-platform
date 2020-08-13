@@ -1,11 +1,11 @@
 {
   "name": "@matchstik/marketing-site",
   "description": "Matchstik.io marketing site",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "dependencies": {
-    "@matchstik/models": "^0.0.2",
-    "@matchstik/utils": "^0.0.2",
+    "@matchstik/models": "^0.0.3",
+    "@matchstik/utils": "^0.0.3",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
