@@ -1,12 +1,12 @@
 global: 
   # Environment Variables
-  DOMAIN_NAME: matchstik.io
-  API_URL: https://api.matchstik.io
-  GCP_BUCKET_NAME: matchstik-uploads-production
+  DOMAIN_NAME: matchstik.dev
+  API_URL: https://api.matchstik.dev
+  GCP_BUCKET_NAME: matchstik-uploads-development
   # TLS Config
   tls: 
-    email: sam@matchstik.io
+    email: sam@matchstik.org
     domains: 
-      web: api.matchstik.io
-      api: api.matchstik.io
+      web: app.matchstik.dev
+      api: api.matchstik.dev
     
