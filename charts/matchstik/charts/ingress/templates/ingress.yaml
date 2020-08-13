@@ -30,7 +30,6 @@ spec:
               serviceName: matchstik-web
               servicePort: 80
             path: /
-  rules: 
     - host: {{ .Values.global.tls.domains.api }}
       http: 
         paths: 
