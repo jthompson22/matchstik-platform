@@ -1,12 +1,16 @@
 import { config } from "dotenv";
 
-if(process.env.NODE_ENV !== 'production') {
+try {
   const result = config();
-
-  Object.keys(result.parsed).forEach(key => {
-    process.env[key] = result.parsed[key];
-  });
+  if(result && result.parsed) {
+    Object.keys(result.parsed).forEach(key => {
+      process.env[key] = result.parsed[key];
+    });
+  }
+} catch(e) {
+  console.info('.env file not found, skipping..');
 }
+
 
 
 import App from './App';

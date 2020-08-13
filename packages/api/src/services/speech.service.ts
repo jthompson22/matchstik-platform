@@ -23,34 +23,34 @@ export default class SpeechService {
 
   constructor() {
     this.client = new SpeechClient();
-    this.go();
+    // this.go();
   }
 
   private go = async(): Promise<any>  => {
     // The name of the audio file to transcribe
-    const fileName = '/Users/samheutmaker/desktop/juice/src/matchstik/files/short-test.mp3';
+    // const fileName = '/Users/samheutmaker/desktop/juice/src/matchstik/files/short-test.mp3';
 
-    // Reads a local audio file and converts it to base64
-    const file = fs.readFileSync(fileName);
-    const audioBytes = file.toString('base64').slice(0, 10485759);
+    // // Reads a local audio file and converts it to base64
+    // const file = fs.readFileSync(fileName);
+    // const audioBytes = file.toString('base64').slice(0, 10485759);
     
 
-    console.log(audioBytes.length);
+    // console.log(audioBytes.length);
 
-    // The audio file's encoding, sample rate in hertz, and BCP-47 language code
-    const audio = {
-      uri: 'gs://matchstik-audio-development/test.mp3'
-    };
-    const config = {
-      enableWordTimeOffsets: true,
-      encoding: 'MP3',
-      sampleRateHertz: 16000,
-      languageCode: 'en-US',
-    };
-    const request = {
-      audio: audio,
-      config: config,
-    };
+    // // The audio file's encoding, sample rate in hertz, and BCP-47 language code
+    // const audio = {
+    //   uri: 'gs://matchstik-audio-development/test.mp3'
+    // };
+    // const config = {
+    //   enableWordTimeOffsets: true,
+    //   encoding: 'MP3',
+    //   sampleRateHertz: 16000,
+    //   languageCode: 'en-US',
+    // };
+    // const request = {
+    //   audio: audio,
+    //   config: config,
+    // };
 
     // Detects speech in the audio file
     // const [operation] = await this.client.longRunningRecognize(request);

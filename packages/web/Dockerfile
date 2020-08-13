@@ -8,7 +8,6 @@ WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # Set up private npm registry
-ARG SELLOUT_NPM_AUTH_TOKEN
 ARG FONTAWESOME_NPM_AUTH_TOKEN
 RUN env
 
@@ -22,6 +21,8 @@ COPY . ./
 
 # Delete .npmrc
 RUN rm -rf .npmrc
+
+RUN ls
 
 RUN npm run build
 CMD npm run production
