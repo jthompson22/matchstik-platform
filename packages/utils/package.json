@@ -14,7 +14,7 @@
   "author": "samheutmaker@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@matchstik/models": "^0.0.3",
+    "@matchstik/models": "^0.0.1",
     "json2csv": "^5.0.0",
     "moment-timezone": "^0.5.28",
     "request": "^2.88.2",

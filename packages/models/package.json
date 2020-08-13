@@ -15,7 +15,7 @@
   "author": "samheutmaker@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@matchstik/utils": "^0.0.3",
+    "@matchstik/utils": "^0.0.1",
     "@types/shortid": "0.0.29",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",

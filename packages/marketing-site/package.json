@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@matchstik/models": "^0.0.3",
-    "@matchstik/utils": "^0.0.3",
+    "@matchstik/models": "^0.0.1",
+    "@matchstik/utils": "^0.0.1",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
