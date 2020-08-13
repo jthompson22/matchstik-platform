@@ -38,6 +38,8 @@
     "apollo-link": "^1.2.13",
     "apollo-link-error": "^1.1.12",
     "apollo-upload-client": "^12.1.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
     "framer-motion": "^1.11.1",
     "moment": "^2.24.0",
     "polished": "^3.4.4",
@@ -62,6 +64,7 @@
     "url": "^0.11.0"
   },
   "scripts": {
+    "production": "node index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
