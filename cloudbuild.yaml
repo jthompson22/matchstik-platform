@@ -1,0 +1,18 @@
+steps:
+
+  # Web
+  - name: 'gcr.io/kaniko-project/executor:v0.16.0'
+    args: ["--dockerfile=./packages/web/Dockerfile", "--destination=gcr.io/$PROJECT_ID/web:$SHORT_SHA", "--context=dir://./packages/web", "--cache=true"]
+    waitFor: ['-'] # This step will run immediately
+
+  # API
+  - name: 'gcr.io/kaniko-project/executor:v0.16.0'
+    args: ["--dockerfile=./packages/api/Dockerfile", "--destination=gcr.io/$PROJECT_ID/api:$SHORT_SHA", "--context=dir://./packages/api", "--cache=true"]
+    waitFor: ['-'] # This step will run immediately
+
+  # Helm
+  - name: 'gcr.io/$PROJECT_ID/helm'
+    args: ['upgrade', '--install', 'matchstik', './charts/matchstik', '--set', 'global.imageTag=$SHORT_SHA', '--values=./charts/matchstik/values.yaml', '--namespace=default', '--force']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'

@@ -1,0 +1,18 @@
+# Shared
+name: "api"
+containerPort: 3001
+component: "api"
+# Deployment
+image: "gcr.io/matchstik/api"
+containerName: "api"
+imagePullPolicy: "Always"
+replicas: 2
+cpu: 50m
+memory: 256Mi
+env:
+  NODE_ENV: 'development'
+  DEBUG_ENABLED: 1
+
+# Service
+servicePort: 80
+serviceType: "LoadBalancer"

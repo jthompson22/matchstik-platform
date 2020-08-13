@@ -1,0 +1,16 @@
+# Shared
+name: "web"
+containerPort: 3000
+component: "web"
+# Deployment
+image: "gcr.io/matchstik/web"
+containerName: "web"
+imagePullPolicy: "Always"
+replicas: 2
+env:
+  NODE_ENV: 'development'
+  DEBUG_ENABLED: 1
+
+  # Service
+servicePort: 80
+serviceType: "LoadBalancer"

@@ -1,0 +1,9 @@
+name: api
+home: https://github.com/matchstik/matchstik
+version: 0.1.0
+description: Matchstik API
+sources:
+  - https://github.com/matchstik/matchstik
+maintainers:
+  - name: Sam Heutmaker
+    email: sam@matchstik.io

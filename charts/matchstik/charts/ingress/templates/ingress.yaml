@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata: 
+  name: {{ template "ingress.fullname" . }}
+  label:
+    app: {{ .Values.name }}
+    heritage: {{.Release.Service | quote }}
+    release: {{.Release.Name | quote }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    component: "{{.Release.Name}}-{{.Values.component}}"
+  annotations: 
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/issuer: "letsencrypt-prod"
+    certmanager.k8s.io/acme-challenge-type: http01
+spec: 
+  selector:
+    matchLabels:
+      component: "{{.Release.Name}}-{{.Values.component}}"
+  tls:
+  - secretName: {{ .Release.Name }}-tls-cert
+    hosts:
+      - {{ .Values.global.tls.domains.web }}
+      - {{ .Values.global.tls.domains.api }}
+  rules: 
+    - host: {{ .Values.global.tls.domains.web }}
+      http: 
+        paths: 
+          - 
+            backend: 
+              serviceName: matchstik-web
+              servicePort: 80
+            path: /
+  rules: 
+    - host: {{ .Values.global.tls.domains.api }}
+      http: 
+        paths: 
+          - 
+            backend: 
+              serviceName: matchstik-api
+              servicePort: 80
+            path: /

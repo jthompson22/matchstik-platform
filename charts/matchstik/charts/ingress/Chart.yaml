@@ -1,0 +1,9 @@
+name: ingress
+home: https://github.com/matchstik/matchstik
+version: 0.1.0
+description: Matchstik Ingress
+sources:
+  - https://github.com/matchstik/matchstik
+maintainers:
+  - name: Sam Heutmaker
+    email: sam@matchstik.io

@@ -1,0 +1,32 @@
+{
+  "name": "@matchstik/utils",
+  "version": "0.0.1",
+  "description": "Matchstik.io Utilities",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc --project .",
+    "start": "nodemon --watch src -e json,js,ts -x \"npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.github.com/matchstik/matchstik/packages/utils"
+  },
+  "author": "samheutmaker@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "@matchstik/models": "^0.0.3",
+    "json2csv": "^5.0.0",
+    "moment-timezone": "^0.5.28",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.8.3"
+  },
+  "gitHead": "19b925444e0cfb93b3bb54ade2a90d2b2fa6b8ed",
+  "publishConfig": {
+    "access": "public"
+  }
+}

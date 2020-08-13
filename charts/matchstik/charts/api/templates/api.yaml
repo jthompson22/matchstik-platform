@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "api.fullname" . }}
+  labels:
+    heritage: {{.Release.Service | quote }}
+    release: {{.Release.Name | quote }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    component: "{{.Release.Name}}-{{.Values.component}}"
+spec:
+  ports:
+    - port: {{.Values.servicePort}}
+      targetPort: {{.Values.containerPort}}
+  selector:
+    component: "{{.Release.Name}}-{{.Values.component}}"
+  type: {{ default "ClusterIP" .Values.serviceType | quote }}
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "api.fullname" . }}
+  labels:
+    app: api
+    heritage: {{.Release.Service | quote }}
+    release: {{.Release.Name | quote }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    component: "{{.Release.Name}}-{{.Values.component}}"
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      component: "{{.Release.Name}}-{{.Values.component}}"
+  template:
+    metadata:
+      labels:
+        heritage: {{.Release.Service | quote }}
+        release: {{.Release.Name | quote }}
+        chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+        component: "{{.Release.Name}}-{{.Values.component}}"
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: google-cloud-key
+      containers:
+        - name: {{ .Values.containerName }}
+          image: "{{ printf "%s:%s" .Values.image .Values.global.imageTag }}"
+          imagePullPolicy: {{.Values.imagePullPolicy}}
+          volumeMounts:
+          - name: google-cloud-key
+            mountPath: /var/secrets/google
+          ports:
+          - name: http
+            containerPort: {{.Values.containerPort}}
+          env:
+            - name: WORKFLOW_RELEASE
+              value: {{.Release.Name | quote }}
+            - name: NODE_ENV
+              value: {{ default "" .Values.env.NODE_ENV | quote }}
+            - name: DEBUG_ENABLED
+              value: {{ default "" .Values.env.DEBUG_ENABLED | quote }}
+            - name: MONGO_DB_HOST
+              value: "{{ .Release.Name }}-mongodb.default.svc.cluster.local"
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+            - name: GCP_BUCKET_NAME
+              value: {{ .Values.global.GCP_BUCKET_NAME }}

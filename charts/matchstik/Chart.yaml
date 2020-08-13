@@ -1,0 +1,10 @@
+name: matchstik
+home: https://github.com/matchstik/matchstik
+version: 0.1.0
+description: matchstik
+sources:
+  - https://github.com/matchstik/matchstik
+maintainers:
+  - name: Sam Heutmaker
+    email: sam@matchstik.io
+
