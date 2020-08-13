@@ -1,6 +1,6 @@
 {
   "name": "@matchstik/api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Matchstik.io API",
   "private": true,
   "main": "index.js",
@@ -28,8 +28,8 @@
   "dependencies": {
     "@google-cloud/speech": "^4.1.0",
     "@google-cloud/storage": "^4.0.0",
-    "@matchstik/models": "^0.0.1",
-    "@matchstik/utils": "^0.0.1",
+    "@matchstik/models": "^0.0.2",
+    "@matchstik/utils": "^0.0.2",
     "apollo-server-express": "^2.9.6",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.19.0",

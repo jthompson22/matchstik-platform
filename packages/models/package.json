@@ -1,6 +1,6 @@
 {
   "name": "@matchstik/models",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Matchstik.io Models",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "author": "samheutmaker@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@matchstik/utils": "^0.0.1",
+    "@matchstik/utils": "^0.0.2",
     "@types/shortid": "0.0.29",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
