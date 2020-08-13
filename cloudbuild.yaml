@@ -2,12 +2,12 @@ steps:
 
   # Web
   - name: 'gcr.io/kaniko-project/executor:v0.16.0'
-    args: ["--dockerfile=./packages/web/Dockerfile", "--destination=gcr.io/$PROJECT_ID/web:$SHORT_SHA", "--context=dir://./packages/web", "--cache=true", "--build-arg=FONTAWESOME_NPM_AUTH_TOKEN=$_FONTAWESOME_NPM_AUTH_TOKEN"]
+    args: ["--dockerfile=./packages/web/Dockerfile", "--destination=gcr.io/$PROJECT_ID/web:$SHORT_SHA", "--context=dir://./packages/web", "--build-arg=FONTAWESOME_NPM_AUTH_TOKEN=$_FONTAWESOME_NPM_AUTH_TOKEN"]
     waitFor: ['-'] # This step will run immediately
 
   # API
   - name: 'gcr.io/kaniko-project/executor:v0.16.0'
-    args: ["--dockerfile=./packages/api/Dockerfile", "--destination=gcr.io/$PROJECT_ID/api:$SHORT_SHA", "--context=dir://./packages/api", "--cache=true"]
+    args: ["--dockerfile=./packages/api/Dockerfile", "--destination=gcr.io/$PROJECT_ID/api:$SHORT_SHA", "--context=dir://./packages/api"]
     waitFor: ['-'] # This step will run immediately
 
   # Helm
