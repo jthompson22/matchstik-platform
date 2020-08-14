@@ -3,5 +3,5 @@ start:
 	lerna run start --parallel
 
 mongo:
-	# kubectl port-forward svc/matchstik-mongodb 27017:27017
-	mongod --dbpath=db
+	kubectl port-forward svc/matchstik-mongodb 27017:27017
+	# mongod --dbpath=db

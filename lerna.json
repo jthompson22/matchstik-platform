@@ -1,7 +1,6 @@
 {
   "packages": [
     "packages/api",
-    "packages/marketing-site",
     "packages/models",
     "packages/utils",
     "packages/web"
