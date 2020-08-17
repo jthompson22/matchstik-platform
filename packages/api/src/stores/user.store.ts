@@ -34,8 +34,10 @@ export default class UserStore {
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
       phoneNumber: Joi.string().optional(),
-      createdAt: Joi.number().required(),
       organizationId: Joi.string().allow(null),
+      meta: {
+        
+      }
     });
 
     const params = Joi.validate(attributes, schema);

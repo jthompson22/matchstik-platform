@@ -116,6 +116,7 @@ export default class UserController implements IUserAPI {
       organizationId: null,
       meta: {
         createdAt: Date.now(),
+        lastUpdatedAt: Date.now(),
       }
     };
 
