@@ -46,7 +46,7 @@ export default function App() {
     <Fragment>
       <Tooltip />
       <Modal />
-      <PageLoader />
+      {/* <PageLoader /> */}
       <Container>
         <Switch>
           <Redirect exact from="/" to="/login" />
