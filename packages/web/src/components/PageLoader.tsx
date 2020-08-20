@@ -51,7 +51,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({
   return (
     <Container fade={typeof fade === 'boolean' ? fade : innerFade} nav={nav}>
       <LoaderContainer nav={nav}>
-        <Loader size={LoaderSizes.Large} color={Colors.Blue} />
+        <Loader size={LoaderSizes.Large} color={Colors.Pink} />
       </LoaderContainer>
     </Container>
   );

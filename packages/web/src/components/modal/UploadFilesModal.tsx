@@ -32,7 +32,7 @@ const Dropzone = styled.div`
   width: 100%;
   height: 400px;
   border-radius: 5px;
-  background-color: ${Colors.BlueHighlight};
+  background-color: ${Colors.PinkHighlight};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +41,7 @@ const Dropzone = styled.div`
 
   &:hover {
     cursor: pointer;
-    background-color: ${Polished.lighten(0.01, Colors.BlueHighlight)};
+    background-color: ${Polished.lighten(0.01, Colors.PinkHighlight)};
   }
 
   &:focus {
@@ -50,13 +50,13 @@ const Dropzone = styled.div`
 
   &:active {
     outline: none;
-    background-color: ${Polished.darken(0.01, Colors.BlueHighlight)};
+    background-color: ${Polished.darken(0.01, Colors.PinkHighlight)};
   }
 `;
 
 const DropzoneText = styled.div`
   font-size: 1.4rem;
-  color: ${Colors.Blue};
+  color: ${Colors.Pink};
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 15px;
@@ -69,7 +69,7 @@ const AudioFiles = styled.div`
   height: 300px;
   border-radius: 5px;
   background-color: ${Colors.White};
-  /* background-color: ${Colors.BlueHighlight}; */
+  /* background-color: ${Colors.PinkHighlight}; */
   display: flex;
   flex-direction: column;
   transition: all 0.2s;
@@ -201,7 +201,7 @@ const UploadFilesModal: React.FC<UploadFilesModalProps> = () => {
             if (loading) {
               return (
                 <Dropzone>
-                  <Loader color={Colors.Blue} />
+                  <Loader color={Colors.Pink} />
                 </Dropzone>
               );
             }
@@ -210,7 +210,7 @@ const UploadFilesModal: React.FC<UploadFilesModalProps> = () => {
               return (
                 <Dropzone {...getRootProps()}>
                   <input {...getInputProps()} />
-                  <Icon icon={Icons.Upload} color={Colors.Blue} size={36} />
+                  <Icon icon={Icons.Upload} color={Colors.Pink} size={36} />
                   <DropzoneText>
                     Drop audio files or click here to browse
                   </DropzoneText>

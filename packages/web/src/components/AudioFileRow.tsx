@@ -88,7 +88,7 @@ const AudioFileRow: React.FC<AudioFileRowProps> = ({ file }) => {
     return (
       <AudioFile>
         <Name>{file.name}</Name>
-        <Loader size={LoaderSizes.VerySmall} color={Colors.Blue} />
+        <Loader size={LoaderSizes.VerySmall} color={Colors.Pink} />
       </AudioFile>
     );
   }

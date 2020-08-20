@@ -25,13 +25,13 @@ const SideNavigationLinkButton = styled(Link)<SideNavigationButtonProps>`
   color: ${(props) =>
     props.active ? Colors.DarkBlue : Colors.Grey1};
   background-color: ${(props) =>
-    props.active ? Colors.BlueHighlight : null};
+    props.active ? Colors.PinkHighlight : null};
 
   &:hover {
     cursor: pointer;
     color: ${(props) =>
       props.active ? Colors.DarkBlue : Colors.Grey1};
-    background-color: ${Colors.BlueHighlight};
+    background-color: ${Colors.PinkHighlight};
   }
 `;
 

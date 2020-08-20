@@ -233,7 +233,7 @@ export type IconProps = {
 
 export default function Icon({
   icon = Icons.AudienceRegular,
-  color = Colors.Blue,
+  color = Colors.Pink,
   hoverColor = null,
   onClick,
   size = 20,
