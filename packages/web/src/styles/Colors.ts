@@ -14,6 +14,8 @@ export enum Colors {
   Grey4 = "#BDBDBD",
   Grey5 = "#E0E0E0",
   Grey6 = "#F2F2F2",
+  Pink = '#E6167B',
+
 };
 
 

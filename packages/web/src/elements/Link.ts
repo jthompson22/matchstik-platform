@@ -4,17 +4,17 @@ import { Colors } from "./../styles/Colors";
 import * as Polished from 'polished';
 
 const StyledLink = styled(Link)`
-  color: ${Colors.Blue};
-  font-size: 1.2rem;
+  color: ${Colors.Pink};
+  font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
 
   &:hover {
-    color: ${Polished.lighten(0.025, Colors.Blue)};
+    color: ${Polished.lighten(0.025, Colors.Pink)};
   }
 
   &:active {
-    color: ${Polished.darken(0.025, Colors.Blue)};
+    color: ${Polished.darken(0.025, Colors.Pink)};
   }
 `;
 

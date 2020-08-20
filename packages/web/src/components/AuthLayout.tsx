@@ -3,82 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as Polished from "polished";
 import logoSrc from "./../assets/images/logo-wide.png";
-import backgroundImageSrc from "./../assets/images/bg-image.jpeg";
-import Modal from "./../elements/Modal";
+import AuthImage from "./../assets/images/auth-image.svg";
+// import Modal from "./../elements/Modal";
 import { Colors } from '../styles/Colors';
-
-export const AuthContainer = styled.form`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* background-image: url(${backgroundImageSrc}); */
-  background-position: left;
-`;
-
-export const Overlay = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: ${Polished.rgba(Colors.DarkBlue, 1)};
-`;
-
-type ContainerProps = {
-  children: React.ReactNode;
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-};
-
-export const Container = ({ children, onSubmit }: ContainerProps) => {
-  return (
-    <AuthContainer onSubmit={onSubmit}>
-      <Overlay />
-      {children}
-    </AuthContainer>
-  );
-};
-
-export const HeaderContainer = styled.div`
-  height: 23vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  z-index: 1000;
-`;
-
-export const Header = () => (
-  <HeaderContainer>
-    <Logo />
-  </HeaderContainer>
-);
-
-const LogoContainer = styled.div`
-  margin-bottom: 20px;
-`;
-
-const LogoImg = styled.img`
-  position: relative;
-  width: 300px;
-`;
-
-const LogoText = styled.div`
-  font-size: 3rem;
-  font-weight: 600;
-  color: ${Colors.White};
-`;
-
-export const Logo = () => (
-  <LogoContainer>
-    <Link to="/">
-      {/* <LogoText>Matchstik</LogoText> */}
-      <LogoImg src={logoSrc} />
-    </Link>
-  </LogoContainer>
-);
+import AuthNavigation from "./AuthNavigation";
 
 export const Content = styled.div`
-  width: 320px;
+  width: 380px;
   padding-top: 10px;
 `;
 
@@ -88,8 +19,16 @@ export const Row = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 100%;
+`;
+
+export const Label = styled.div`
+  position: relative;
+  font-size: 1.2rem;
+  color: ${Colors.Grey1};
+  font-weight: 800;
+  margin-bottom: 10px;
 `;
 
 type FlexProps = {
@@ -105,7 +44,7 @@ export const Spacer = styled.div`
 
 export const Text = styled.div`
   color: ${Colors.Grey1};
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 600;
 `;
 
@@ -133,6 +72,51 @@ export const SuccessText = styled.div`
   text-align: center;
 `;
 
+const Title = styled.div`
+  position: relative;
+  font-size: 4.8rem;
+  font-weight: 900;
+  color: ${Colors.Grey1};
+  margin-bottom: 15px;
+`;
+
+const Center = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+
+const MainImage = styled.img`
+  display: block;
+  position: relative;
+  width: 80%;
+`;
+
+const Container = styled.form`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${Colors.White};
+`;
+
+const InnerContainer = styled.div`
+  height: calc(100% - 100px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`;
+
+type ContainerProps = {
+  children: React.ReactNode;
+  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+};;
+
 type AuthLayoutProps = {
   title?: string,
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void,
@@ -145,10 +129,22 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
   children,
 }) => {
   return (
+    <div>
     <Container onSubmit={onSubmit}>
-      <Header />
-      <Modal title={title}>{children}</Modal>
+      <AuthNavigation />
+      <InnerContainer>
+        <Center>
+          <div>
+            <Title>{title}</Title>
+            {children}
+          </div>
+        </Center>
+        <Center>
+          <MainImage src={AuthImage} />
+        </Center>
+      </InnerContainer>
     </Container>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import shortid from 'shortid';
+import MetaData from './MetaData.mongo';
 
 export default {
   _id: {
@@ -22,10 +23,6 @@ export default {
   lastName: {
     type: String,
     required: false,
-  },
-  createdAt: {
-    type: Number,
-    required: true
   },
   phoneNumber: {
     type: String,
@@ -55,4 +52,5 @@ export default {
     required: false,
     default: null
   },
+  meta: MetaData,
 }

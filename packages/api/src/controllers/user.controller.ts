@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import shortid from "shortid";
 import Joi from "joi";
 import uuid4 from "uuid/v4";
 import UserStore from "../stores/user.store";
@@ -107,7 +108,10 @@ export default class UserController implements IUserAPI {
     /**
      * Save the user to storage
      */
+    const now = Date.now();
+    const _id = shortid.generate();
     const attributes: IUser = {
+      _id,
       email,
       password,
       firstName,
@@ -115,8 +119,10 @@ export default class UserController implements IUserAPI {
       phoneNumber,
       organizationId: null,
       meta: {
-        createdAt: Date.now(),
-        lastUpdatedAt: Date.now(),
+        createdAt: now,
+        createdBy: _id,
+        lastUpdatedAt: now,
+        lastUpdatedBy: _id,
       }
     };
 

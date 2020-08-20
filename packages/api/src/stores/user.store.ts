@@ -28,6 +28,7 @@ export default class UserStore {
     delete attributes.password;
 
     const schema = Joi.object().keys({
+      _id: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.any().forbidden(),
       passwordHash: Joi.string().required(),
@@ -36,8 +37,11 @@ export default class UserStore {
       phoneNumber: Joi.string().optional(),
       organizationId: Joi.string().allow(null),
       meta: {
-        
-      }
+        createdAt: Joi.number().required(),
+        createdBy: Joi.string().required(),
+        lastUpdatedAt: Joi.number().required(),
+        lastUpdatedBy: Joi.string().required(),
+      },
     });
 
     const params = Joi.validate(attributes, schema);
@@ -48,7 +52,7 @@ export default class UserStore {
       lastName, 
       phoneNumber, 
       organizationId,
-      createdAt 
+      meta,
     } = params.value;
 
     if (params.error) {
@@ -62,7 +66,7 @@ export default class UserStore {
       lastName,
       phoneNumber,
       organizationId,
-      createdAt
+      meta,
     };
 
     let savedUser: IUser;
@@ -72,7 +76,7 @@ export default class UserStore {
     try {
       savedUser = await user.save();
     } catch (e) {
-      return Promise.reject(new UserStore.OPERATION_UNSUCCESSFUL());
+      return Promise.reject(e);
     }
 
     return savedUser;

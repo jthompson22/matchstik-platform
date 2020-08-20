@@ -10,14 +10,14 @@ type StyledInputProps = {
 }
 
 const InputStyled = styled.input<StyledInputProps>`
-  background-color: ${Colors.VeryLightBlue};
+  /* background-color: ${Colors.VeryLightBlue}; */
   color: ${Colors.Grey1};
   outline: none;
   border: 0px;
-  border-radius: 5px;
-  height: 33px;
+  border-radius: 10px;
+  height: 48px;
   width: fill-available;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 600;
   padding: 0 0 0 10px;
   transition: all 0.2s;
@@ -26,7 +26,7 @@ const InputStyled = styled.input<StyledInputProps>`
   border: ${props =>
     props.error
       ? `1px solid ${Colors.Red}`
-      : `1px solid ${Colors.VeryLightBlue}`};
+      : `1px solid ${Colors.Grey5}`};
 
   ::placeholder {
     color: ${Colors.Grey4};
@@ -35,19 +35,19 @@ const InputStyled = styled.input<StyledInputProps>`
   }
 
   &:hover {
-    background-color: ${Polished.darken(0.01, Colors.VeryLightBlue)};
-    border: ${props =>
+    /* background-color: ${Polished.darken(0.01, Colors.VeryLightBlue)}; */
+    /* border: ${props =>
       props.error
         ? `1px solid ${Colors.Red}`
-        : `1px solid ${Polished.darken(0.01, Colors.VeryLightBlue)}`};
+        : `1px solid ${Polished.darken(0.01, Colors.VeryLightBlue)}`}; */
   }
 
   &:focus {
-    background-color: ${Polished.darken(0.02, Colors.VeryLightBlue)};
-    border: ${props =>
+    /* background-color: ${Polished.darken(0.02, Colors.VeryLightBlue)}; */
+    /* border: ${props =>
       props.error
         ? `1px solid ${Colors.Red}`
-        : `1px solid ${Polished.darken(0.02, Colors.VeryLightBlue)}`};
+        : `1px solid ${Polished.darken(0.02, Colors.VeryLightBlue)}`}; */
   }
 `;
 

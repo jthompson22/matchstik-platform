@@ -115,7 +115,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   /* Render */
   return (
     <AuthLayout
-      title="Login"
+      title="Welcome back"
       onSubmit={login}
     >
       <Content>

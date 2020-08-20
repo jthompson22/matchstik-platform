@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import Joi from "@hapi/joi";
+import { useHistory } from "react-router-dom";
 import Button, { ButtonTypes } from "../elements/Button";
 import LabeledInput from "../elements/LabeledInput";
 import Link from "../elements/Link";
@@ -17,6 +18,7 @@ import AuthLayout, {
   ErrorText,
   Flex,
   Spacer,
+  Label,
 } from "../components/AuthLayout";
 
 const schema = Joi.object({
@@ -76,6 +78,9 @@ const schema = Joi.object({
 type RegisterPageProps = {};
 
 const RegisterPage: React.FC<RegisterPageProps> = () => {
+  /** Hooks */
+  const history = useHistory();
+  /** State */
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -91,6 +96,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     confirmPassword: null,
   });
 
+  /** Actions */
   const eventHandler = makeEventHandler(() => setError(''));
 
   const setFieldErrors = (field: string, message: string | null) => {
@@ -125,6 +131,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     setConfirmPassword(value);
   });
 
+  /** GraphQL */
   const [registerMutation, { loading }] = useMutation(REGISTER, {
     variables: {
       user: {
@@ -136,6 +143,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     },
     onCompleted: async ({ register: { token } }) => {
       await Auth.setToken(token);
+      history.push('/dashboard/projects');
     },
     onError: async (error) => {
       const errorMsg = ErrorUtil.getErrorMessage(error);
@@ -168,15 +176,17 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     registerMutation();
   }
 
+  /** Render */
   return (
-    <AuthLayout title="Register" onSubmit={register}>
+    <AuthLayout title="Get started" onSubmit={register}>
       <Content>
+        <Label>Let's get some basics</Label>
         <Row>
           <Flex flex="1">
             <LabeledInput
               autoFocus
-              label="First Name"
-              placeholder="Sigismund"
+              // label="First Name"
+              placeholder="Your first name"
               value={firstName}
               onChange={onChangeFirstName}
               error={fieldErrors["firstName"]}
@@ -185,37 +195,40 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
           <Spacer />
           <Flex flex="1">
             <LabeledInput
-              label="Last Name"
-              placeholder="Freud"
+              // label="Last Name"
+              placeholder="Your last name"
               value={lastName}
               onChange={onChangeLastName}
               error={fieldErrors["lastName"]}
             />
           </Flex>
         </Row>
+        <Label>Email addresss</Label>
         <Row>
           <LabeledInput
-            label="Email"
-            placeholder="sigismund@freud.com"
+            // label="Email"
+            placeholder="Your email"
             value={email}
             onChange={onChangeEmail}
             error={fieldErrors["email"]}
           />
         </Row>
+        <Label>Choose a password</Label>
         <Row>
           <LabeledInput
-            label="Password"
-            placeholder="••••••••••••"
+            // label="Password"
+            placeholder="Enter password"
             value={password}
             type="password"
             onChange={onChangePassword}
             error={fieldErrors["password"]}
           />
         </Row>
+        <Label>Confirm your password</Label>
         <Row>
           <LabeledInput
-            label="Confirm Password"
-            placeholder="••••••••••••"
+            // label="Confirm Password"
+            placeholder="Re-enter password"
             value={confirmPassword}
             type="password"
             onChange={onChangeConfirmPassword}

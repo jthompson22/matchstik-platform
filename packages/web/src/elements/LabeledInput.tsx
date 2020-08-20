@@ -22,7 +22,7 @@ const ErrorText = styled.div`
   margin-top: 5px;
 `;
 
-export type LabeledInputProps = InputProps & {label: string}
+export type LabeledInputProps = InputProps & {label?: string}
 
 export default function LabeledInput({
   label,
@@ -30,7 +30,7 @@ export default function LabeledInput({
 }: LabeledInputProps) {
   return (
     <Container>
-      <Label>{label}</Label>
+      {label && <Label>{label}</Label>}
       <Input {...inputProps} />
       {inputProps.error && <ErrorText>{inputProps.error}</ErrorText>}
     </Container>
