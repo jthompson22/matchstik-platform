@@ -5,6 +5,7 @@ import uuid4 from "uuid/v4";
 import UserStore from "../stores/user.store";
 import IUser from "@matchstik/models/.dist/interfaces/IUser";
 import IOrganization from "@matchstik/models/.dist/interfaces/IOrganization";
+import { WEB_UI_URL } from '../env';
 import {
   ICreateOrgRequest,
   ICreateOrgResponse
@@ -312,7 +313,7 @@ export default class UserController implements IUserAPI {
       if (user) {
         const sendEmailRequest: ISendUserPasswordResetEmailRequest = {
           toAddress: user.email,
-          resetPasswordUrl: `http://localhost:3000/reset-password?code=${resetPasswordCode}`
+          resetPasswordUrl: `${WEB_UI_URL}/reset-password?code=${resetPasswordCode}`
         };
 
         await this.controller.email.sendUserPasswordResetEmail(
@@ -410,7 +411,7 @@ export default class UserController implements IUserAPI {
       if (user) {
         const request: ISendUserEmailVerificationEmailRequest = {
           toAddress: user.email,
-          verifyEmailUrl: `http://localhost:3000/verify-email?code=${verifyEmailCode}`
+          verifyEmailUrl: `${WEB_UI_URL}/verify-email?code=${verifyEmailCode}`
         };
 
         await this.controller.email.sendUserEmailVerificationEmail(request);

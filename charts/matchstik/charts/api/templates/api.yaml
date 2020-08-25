@@ -69,3 +69,5 @@ spec:
               value: /var/secrets/google/key.json
             - name: GCP_BUCKET_NAME
               value: {{ .Values.global.GCP_BUCKET_NAME }}
+            - name: WEB_UI_URL
+              value: {{ .Values.global.WEB_UI_URL }}
