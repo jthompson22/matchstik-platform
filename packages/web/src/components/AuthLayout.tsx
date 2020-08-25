@@ -112,11 +112,6 @@ const InnerContainer = styled.div`
   width: 100%;
 `;
 
-type ContainerProps = {
-  children: React.ReactNode;
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-};;
-
 type AuthLayoutProps = {
   title?: string,
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void,
