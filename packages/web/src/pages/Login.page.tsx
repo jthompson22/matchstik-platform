@@ -82,7 +82,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     },
     onCompleted: async ({ login: { token } }) => {
       await Auth.setToken(token);
-      history.push('/dashboard/projects');
+      history.push('/dashboard/overview');
     },
     onError: async error => {
       const errorMsg = ErrorUtil.getErrorMessage(error);

@@ -13,30 +13,8 @@ import gql from 'graphql-tag';
 import LIST_PROJECTS from '../graphql/queries/projects.query';
 import IProject from '@matchstik/models/.dist/interfaces/IProject';
 import useNavigateToProjectDetails from '../hooks/useNavigateToProjectDetails.hook';
-
-const file = gql`
-  query File {
-    file {
-      results {
-        alternatives {
-          transcript
-          confidence
-          words {
-            startTime {
-              seconds 
-              nano
-            }
-            endTime {
-              seconds
-              nanos
-            }
-            word
-          }
-        }
-      }
-    }
-  }
-`;
+import { Title } from '../components/DashboardLayout';
+import MainNavigation from '../components/MainNavigation';
 
 const Container = styled.div`
   position: relative;
@@ -55,33 +33,13 @@ const Content = styled.div`
   background-color: ${Colors.White};
 `;
 
-const Project = styled.div`
-  display: border-box;
-  width: 320px;
-  height: 195px;
-  padding: 15px;
-  margin-left: 30px;
-  margin-top: 30px;
-  border-radius: 5px;
-  border: 1px solid ${Colors.Grey6};
-  background-color: ${Colors.White};
-  transition: all 0.2s;
+type DonationsPageProps = {};
 
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-type ProjectListProps = {};
-
-const ProjectList: React.FC<ProjectListProps> = ({}) => {
+const DonationsPage: React.FC<DonationsPageProps> = ({}) => {
   /* Hooks */
   const navigateToProjectDetails = useNavigateToProjectDetails();
   /* State */
   const appState = useSelector((state: MatchstikState) => state.app);
-  // const { projectId, projectsCache } = appState;
-  // const project = projectsCache[projectId];
 
   /* Actions */
   const dispatch = useDispatch();
@@ -93,26 +51,10 @@ const ProjectList: React.FC<ProjectListProps> = ({}) => {
 
   return (
     <Container>
-      <PageHeader>
-        <PageTitle>Projects</PageTitle>
-        <Button
-          type={ButtonTypes.Submit}
-          onClick={() => createProject()}
-          text="Create Project"
-          width="180px"
-        />
-      </PageHeader>
-      <Content>
-        {data?.projects.map((project: IProject) => {
-          return (
-            <Project onClick={() => navigateToProjectDetails(project._id)}>
-              {project.name}
-            </Project>
-          );
-        })}
-      </Content>
+      <Title>Overview</Title>
+      <MainNavigation />
     </Container>
   );
 };
 
-export default ProjectList;
+export default DonationsPage;

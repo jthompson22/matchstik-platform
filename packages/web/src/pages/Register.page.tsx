@@ -143,7 +143,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     },
     onCompleted: async ({ register: { token } }) => {
       await Auth.setToken(token);
-      history.push('/dashboard/projects');
+      history.push('/dashboard/overview');
     },
     onError: async (error) => {
       const errorMsg = ErrorUtil.getErrorMessage(error);

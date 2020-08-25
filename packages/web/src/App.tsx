@@ -12,8 +12,9 @@ import ResetPassword from "./pages/ResetPassword.page";
 import VerifyEmail from "./pages/VerifyEmail.page";
 //Dasbhoard
 import DashboardLayout from './components/DashboardLayout';
-import ProjectList from './pages/ProjectList.page';
-import ProjectDetailsContainer from './containers/ProjectDetails.container';
+import DonationsPage from './pages/Donations.page';
+import InstallButtonPage from './pages/InstallButton.page';
+import SettingsPage from './pages/Settings.page';
 
 const Container = styled.div`
   position: absolute;
@@ -30,12 +31,10 @@ function DashboardContainer({ match }: any) {
   return (
     <DashboardLayout>
       <Switch>
-        <Redirect exact from={`${match.path}/`} to={`${match.path}/projects`} />
-        <Route exact path={`${match.path}/projects`} component={ProjectList} />
-        <Route path={`${match.path}/projects`} component={ProjectDetailsContainer} />
-        {/* <Route path={`${match.path}/events`} component={EventDetailsContainer} />
-        <Route path={`${match.path}/orders`} component={OrdersContainer} />
-        <Route path={`${match.path}/settings`} component={SettingsContainer} /> */}
+        <Redirect exact from={`${match.path}/`} to={`${match.path}/overview`} />
+        <Route exact path={`${match.path}/overview`} component={DonationsPage} />
+        <Route exact path={`${match.path}/install-button`} component={InstallButtonPage} />
+        <Route exact path={`${match.path}/settings`} component={SettingsPage} />
       </Switch>
     </DashboardLayout>
   );
