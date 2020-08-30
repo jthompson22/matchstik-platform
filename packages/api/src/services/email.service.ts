@@ -79,7 +79,7 @@ export default class EmailService implements IEmailService {
   // public queueUserWelcomeEmail = async (request: pb.QueueUserWelcomeEmailRequest): Promise<pb.google.protobuf.Empty> => {
   //   await this.sendEmail(
   //     'userWelcomeEmail',
-  //     'Welcome to Sellout',
+  //     'Welcome to Matchstik',
   //     request.toAddress,
   //     null,
   //     {
@@ -143,7 +143,7 @@ export default class EmailService implements IEmailService {
   // public queueInviteToOrganizationEmailRequest = async (request: pb.QueueInviteToOrganizationEmailRequest): Promise<pb.google.protobuf.Empty> => {
   //   await this.sendEmail(
   //     'inviteToOrganization',
-  //     `Join ${request.orgName} on Sellout`,
+  //     `Join ${request.orgName} on Matchstik`,
   //     request.toAddress,
   //     null,
   //     {

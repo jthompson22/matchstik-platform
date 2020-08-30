@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import * as Polished from "polished";
-import logoSrc from "./../assets/images/logo-wide.png";
 import AuthImage from "./../assets/images/auth-image.svg";
-// import Modal from "./../elements/Modal";
 import { Colors } from '../styles/Colors';
 import AuthNavigation from "./AuthNavigation";
 

@@ -18,8 +18,8 @@ import AuthLayout, {
   ErrorText,
   Flex,
   Spacer,
-  Label,
 } from "../components/AuthLayout";
+import Label from '../elements/Label'
 
 const schema = Joi.object({
   firstName: Joi.string()
@@ -180,7 +180,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
   return (
     <AuthLayout title="Get started" onSubmit={register}>
       <Content>
-        <Label>Let's get some basics</Label>
+        <Label text="Let's get some basics" />
         <Row>
           <Flex flex="1">
             <LabeledInput
@@ -203,7 +203,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             />
           </Flex>
         </Row>
-        <Label>Email addresss</Label>
+        <Label text="Email addresss" />
         <Row>
           <LabeledInput
             // label="Email"
@@ -213,7 +213,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             error={fieldErrors["email"]}
           />
         </Row>
-        <Label>Choose a password</Label>
+        <Label text="Choose a password" />
         <Row>
           <LabeledInput
             // label="Password"
@@ -224,7 +224,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             error={fieldErrors["password"]}
           />
         </Row>
-        <Label>Confirm your password</Label>
+        <Label text="Confirm your password" />
         <Row>
           <LabeledInput
             // label="Confirm Password"

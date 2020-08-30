@@ -18,7 +18,6 @@ const SideNavigationLinkButton = styled(Link)<SideNavigationButtonProps>`
   justify-content: space-between;
   text-decoration: none;
   margin-right: 30px;
-  margin-bottom: 15px;
   border-radius: 5px;
   transition: all 0.1s;
   color: ${(props) =>

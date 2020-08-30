@@ -2,17 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Colors } from "../styles/Colors";
 import Input, { InputProps } from './Input';
+import Label from './Label';
 
 const Container = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const Label = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: ${Colors.Grey2};
-  margin-bottom: 5px;
 `;
 
 const ErrorText = styled.div`
@@ -30,7 +24,7 @@ export default function LabeledInput({
 }: LabeledInputProps) {
   return (
     <Container>
-      {label && <Label>{label}</Label>}
+      {label && <Label text={label} />}
       <Input {...inputProps} />
       {inputProps.error && <ErrorText>{inputProps.error}</ErrorText>}
     </Container>

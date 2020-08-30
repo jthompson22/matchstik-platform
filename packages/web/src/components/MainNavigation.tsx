@@ -6,7 +6,6 @@ import { Colors } from '../styles/Colors';
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 50px;
 `;
 
 type MainNavigationProps = {};

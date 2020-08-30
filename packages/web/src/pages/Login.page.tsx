@@ -122,7 +122,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         <Row>
           <LabeledInput
             autoFocus
-            label="Email"
+            label="Email Address"
             placeholder="sigismund@freud.com"
             value={email}
             onChange={onChangeEmail}

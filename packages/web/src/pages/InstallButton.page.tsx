@@ -11,10 +11,10 @@ import { Colors } from '../styles/Colors';
 import { ModalTypes } from '../components/modal/Modal';
 import gql from 'graphql-tag';
 import LIST_PROJECTS from '../graphql/queries/projects.query';
-import IProject from '@matchstik/models/.dist/interfaces/IProject';
 import useNavigateToProjectDetails from '../hooks/useNavigateToProjectDetails.hook';
 import { Title } from '../components/DashboardLayout';
 import MainNavigation from '../components/MainNavigation';
+import EmbedButtonCreator from '../components/EmbedButtonCreator';
 
 const Container = styled.div`
   position: relative;
@@ -53,6 +53,7 @@ const InstallButtonPage: React.FC<InstallButtonPageProps> = ({}) => {
     <Container>
       <Title>Install Button</Title>
       <MainNavigation />
+      <EmbedButtonCreator />
     </Container>
   );
 };
