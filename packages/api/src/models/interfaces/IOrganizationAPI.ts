@@ -8,18 +8,18 @@ import {
 } from './common';
 
 export default interface IOrganizationAPI {
-  create(request: ICreateOrgRequest): Promise<ICreateOrgResponse>;
-  update(request: IUpdateOrgRequest): Promise<IUpdateOrgResponse>;
+  create(request: ICreateOrganizationRequest): Promise<ICreateOrgResponse>;
+  update(request: IUpdateOrganizationRequest): Promise<IUpdateOrgResponse>;
   list(request: IListOrgsRequest): Promise<IListOrgsResponse>;
-  get(request: IGetOrgRequest): Promise<IGetOrgResponse>;
-  delete(request: IDeleteOrgRequest): Promise<IDeleteOrgResponse>;
+  get(request: IGetOrganizationRequest): Promise<IGetOrgResponse>;
+  delete(request: IDeleteOrganizationRequest): Promise<IDeleteOrgResponse>;
 }
 
 /********************************************************************************
 *  Create Organization
 ********************************************************************************/
 
-export interface ICreateOrgRequest extends IAuthenticatedRequest {
+export interface ICreateOrganizationRequest extends IAuthenticatedRequest {
   organization: IOrganization;
 }
 
@@ -31,7 +31,7 @@ export interface ICreateOrgResponse extends IResponse {
 *  Update Organzation
 ********************************************************************************/
 
-export interface IUpdateOrgRequest extends IAuthorizedRequest {
+export interface IUpdateOrganizationRequest extends IAuthorizedRequest {
   organization: IOrganization;
 }
 
@@ -55,7 +55,7 @@ export interface IListOrgsResponse extends IResponse {
 *  Get Organzation
 ********************************************************************************/
 
-export interface IGetOrgRequest extends IAuthorizedRequest {
+export interface IGetOrganizationRequest extends IAuthorizedRequest {
   organizationId: string;
 }
 
@@ -67,7 +67,7 @@ export interface IGetOrgResponse extends IResponse {
 *  Delete Organzation
 ********************************************************************************/
 
-export interface IDeleteOrgRequest extends IAuthorizedRequest {
+export interface IDeleteOrganizationRequest extends IAuthorizedRequest {
   organizationId: string;
 }
 

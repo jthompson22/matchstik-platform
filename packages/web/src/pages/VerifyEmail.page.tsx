@@ -3,21 +3,15 @@ import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
 import queryString from "query-string";
 import Button, { ButtonTypes } from "../elements/Button";
-import Link from "../elements/Link";
-import Loader, { LoaderSizes } from "../elements/Loader";
+import Loader from "../elements/Loader";
 import { Colors } from '../styles/Colors';
 import VERIFY_EMAIL from "../graphql/mutations/verifyEmail.mutation";
 import * as ErrorUtil from "../utils/ErrorUtil";
 import AuthLayout, {
   Content,
-  Row,
-  Text,
-  Footer,
-  ErrorText
 } from "../components/AuthLayout";
 import UrlParams from "../models/interfaces/UrlParams";
-
-
+import ErrorText from "../elements/ErrorText";
 
 const LoaderContainer = styled.div`
   height: 160px;

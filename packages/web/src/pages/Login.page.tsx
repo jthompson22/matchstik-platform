@@ -14,12 +14,12 @@ import AuthLayout, {
   Row,
   Text,
   Footer,
-  ErrorText
 } from "../components/AuthLayout";
+import ErrorText from '../elements/ErrorText';
 import { useHistory } from 'react-router-dom';
 
 const schema = Joi.object({
-  email: Schema.email().error(([error]) => {
+  email: Schema.user.email().error(([error]) => {
     const message = "Email is invalid";
     return new Error(
       JSON.stringify({
@@ -28,7 +28,7 @@ const schema = Joi.object({
       })
     );
   }),
-  password: Schema.password().error(([error]) => {
+  password: Schema.user.password().error(([error]) => {
     const message = "Password is invalid";
     return new Error(
       JSON.stringify({

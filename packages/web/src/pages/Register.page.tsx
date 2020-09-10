@@ -15,11 +15,11 @@ import AuthLayout, {
   Row,
   Text,
   Footer,
-  ErrorText,
   Flex,
   Spacer,
 } from "../components/AuthLayout";
 import Label from '../elements/Label'
+import ErrorText from "../elements/ErrorText";
 
 const schema = Joi.object({
   firstName: Joi.string()
@@ -44,7 +44,7 @@ const schema = Joi.object({
         })
       );
     }),
-  email: Schema.email().error(([error]) => {
+  email: Schema.user.email().error(([error]) => {
     const message = "Email is invalid";
     return new Error(
       JSON.stringify({
@@ -53,7 +53,7 @@ const schema = Joi.object({
       })
     );
   }),
-  password: Schema.password().error(([error]) => {
+  password: Schema.user.password().error(([error]) => {
     const message = "Password is invalid";
     return new Error(
       JSON.stringify({
@@ -62,7 +62,7 @@ const schema = Joi.object({
       })
     );
   }),
-  confirmPassword: Schema.password()
+  confirmPassword: Schema.user.password()
     .valid(Joi.ref("password"))
     .error(([error]) => {
       const message = "Passwords do not match";

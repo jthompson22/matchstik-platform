@@ -18,12 +18,16 @@ function streamToBuffer(stream): Promise<Buffer> {
 export default {
   Mutation: {
     async uploadFiles(_, args, context) {
-      const { req: { user: { userId } } } = context;
+      const { req: { user } } = context;
 
-      console.log(userId);
+      console.log(user._id);
       
-      if (!userId) {
+      if (!user._id) {
         throw new AuthenticationError("Authentication Required.");
+      }
+
+      if (!user.organizationId) {
+        throw new AuthenticationError("Authorization Required.");
       }
       
       const files: IFile[] = await Promise.all(args.files.map(async file => {

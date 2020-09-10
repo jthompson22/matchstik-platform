@@ -1,3 +1,4 @@
+import IUser from '@matchstik/models/.dist/interfaces/IUser';
 import StatusCodeEnum from '../../models/enums/StatusCodeEnum';
 import {
   ApolloError,
@@ -21,11 +22,11 @@ import {
 export default {
   Query: {
     async user(parent, args, context) {
-      const { userId } = parent;
+      const { req: { user } }: { req: { user: IUser } } = context;
 
       const request: IGetUserRequest = {
         auth: {
-          userId
+          userId: user._id,
         }
       };
 
@@ -43,6 +44,8 @@ export default {
       } catch (e) {
         throw e;
       }
+
+      console.log(response.user);
 
       return response.user;
     }

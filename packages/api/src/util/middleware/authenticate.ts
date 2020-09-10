@@ -23,9 +23,11 @@ export default function authenticate(req, res, next) {
     if (error) {
       console.error(error);
     } else if (data && data._id) {
+
+      console.log(data);
       req.user = {
-        userId: data._id ? data._id.toString() : null,
-        userEmail: data.email ? data.email.toString() : null,
+        _id: data._id ? data._id.toString() : null,
+        email: data.email ? data.email.toString() : null,
         organizationId: data.organizationId ? data.organizationId.toString() : null,
       };
     }

@@ -6,11 +6,11 @@ import {
 } from 'apollo-server-express';
 import controller from '../../controllers/controller';
 import {
-  IUpdateOrgRequest,
+  IUpdateOrganizationRequest,
   IUpdateOrgResponse,
-  IGetOrgRequest,
+  IGetOrganizationRequest,
   IGetOrgResponse,
-  IDeleteOrgRequest,
+  IDeleteOrganizationRequest,
   IDeleteOrgResponse,
 } from '../../models/interfaces/IOrganizationAPI';
 
@@ -19,7 +19,7 @@ export default {
     async organization(parent, args, context) {
       const { req: { user } }: { req: { user: IUser } } = context;
 
-      const request: IGetOrgRequest = {
+      const request: IGetOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,
@@ -55,7 +55,7 @@ export default {
         throw new AuthenticationError("Authorization Required."); 
       }
 
-      const request: IUpdateOrgRequest = {
+      const request: IUpdateOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,
@@ -89,7 +89,7 @@ export default {
         throw new AuthenticationError("Authorization Required.");
       }
 
-      const request: IDeleteOrgRequest = {
+      const request: IDeleteOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,

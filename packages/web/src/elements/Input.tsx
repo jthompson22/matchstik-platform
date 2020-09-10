@@ -6,6 +6,7 @@ import * as Polished from 'polished';
 type StyledInputProps = {
   margin?: string;
   padding?: string;
+  width: string;
   error?: boolean;
 }
 
@@ -16,9 +17,9 @@ const InputStyled = styled.input<StyledInputProps>`
   border: 0px;
   border-radius: 10px;
   height: 48px;
-  width: fill-available;
+  width: ${props => props.width};
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0 0 0 10px;
   transition: all 0.2s;
   margin: ${props => props.margin};
@@ -62,8 +63,9 @@ export type InputProps = {
   onFocus?: any;
   margin?: string;
   padding?: string;
+  width?: string;
   error?: string | null;
-}
+};
 
 export default function Input({
   autoFocus,
@@ -76,6 +78,7 @@ export default function Input({
   onFocus,
   margin,
   padding,
+  width = 'fill-available',
   error,
 }: InputProps) {
   return (
@@ -90,6 +93,7 @@ export default function Input({
       onFocus={onFocus}
       margin={margin}
       padding={padding}
+      width={width}
       error={Boolean(error)}
     />
   );

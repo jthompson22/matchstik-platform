@@ -7,7 +7,7 @@ import IUser from "@matchstik/models/.dist/interfaces/IUser";
 import IOrganization from "@matchstik/models/.dist/interfaces/IOrganization";
 import { WEB_UI_URL } from '../env';
 import {
-  ICreateOrgRequest,
+  ICreateOrganizationRequest,
   ICreateOrgResponse
 } from "../models/interfaces/IOrganizationAPI";
 import StatusCodeEnum from "../models/enums/StatusCodeEnum";
@@ -142,7 +142,7 @@ export default class UserController implements IUserAPI {
      * and set the organizationId on the user
      */
     try {
-      const request: ICreateOrgRequest = {
+      const request: ICreateOrganizationRequest = {
         auth: {
           userId: user._id
         },
@@ -479,11 +479,11 @@ export default class UserController implements IUserAPI {
     let response: IGetUserResponse;
 
     const schema = Joi.object().keys({
-      userId: Joi.string().required()
+      auth: authenticatedSchema,
     });
 
     const params = Joi.validate(request, schema);
-    const { userId }: { userId: string } = params.value;
+    const { auth: { userId } }: { auth: { userId: string} } = params.value;
 
     if (params.error) {
       console.error(params.error);

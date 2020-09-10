@@ -55,15 +55,17 @@ const schema = gql`
     phoneNumber: String
     email: String
     address: String
+    logoUrl: String
   }
 
-  input OrgInput {
+  input OrganizationInput {
     _id: String
     name: String
     description: String
     phoneNumber: String
     email: String
     address: String
+    logoUrl: String
   }
 
   ######################################################################
@@ -160,7 +162,7 @@ const schema = gql`
     verifyEmail(verifyEmailCode: String!): Boolean
 
     # Organization
-    updateOrganization(organization: OrgInput!): Organization
+    updateOrganization(organization: OrganizationInput!): Organization
     deleteOrganization(organizationId: String!): Boolean
 
     # Miscellaneous

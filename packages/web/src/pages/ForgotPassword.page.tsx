@@ -15,12 +15,11 @@ import AuthLayout, {
   Text,
   Footer,
   SuccessText,
-  ErrorText
 } from "../components/AuthLayout";
-
+import ErrorText from "../elements/ErrorText";
 
 const schema = Joi.object({
-  email: Schema.email().error(([error]) => {
+  email: Schema.user.email().error(([error]) => {
     const message = "Email is invalid";
     return new Error(
       JSON.stringify({

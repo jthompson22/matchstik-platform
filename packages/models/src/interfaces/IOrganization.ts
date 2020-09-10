@@ -9,5 +9,6 @@ export default interface IOrganization {
   phoneNumber?: string;
   email?: string;
   address?: string;
+  logoUrl?: string;
   meta?: IMetaData;
 };

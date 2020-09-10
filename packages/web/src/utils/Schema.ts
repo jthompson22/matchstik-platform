@@ -1,7 +1,24 @@
 import Joi from "@hapi/joi";
 
-export const email = () => Joi.string().email({ tlds: { allow: false }});
-export const password = () => Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"));
+// User
+export const user = {
+  email: () => Joi.string().email({ tlds: { allow: false } }),
+  password: () => Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+}
+
+// Organization
+export const organization = {
+  name: () => Joi.string().required(),
+  email: () => Joi.string().email({ tlds: { allow: false } }).required(),
+  phoneNumber: () => Joi.string().required(),
+  description: () => Joi.string().required(),
+  address: () => Joi.string().required(),
+  logoUrl: () => Joi.string().required(),
+}
+
+
+
+// Organization
 
 // export const exists = function (value) {
 //   if (!value) return false;

@@ -15,12 +15,12 @@ import AuthLayout, {
   Row,
   Text,
   Footer,
-  ErrorText
 } from "../components/AuthLayout";
 import UrlParams from "../models/interfaces/UrlParams";
+import ErrorText from "../elements/ErrorText";
 
 const schema = Joi.object({
-  password: Schema.password().error(([error]) => {
+  password: Schema.user.password().error(([error]) => {
     const message = "Password is invalid";
     return new Error(
       JSON.stringify({
@@ -29,7 +29,7 @@ const schema = Joi.object({
       })
     );
   }),
-  confirmPassword: Schema.password().error(([error]) => {
+  confirmPassword: Schema.user.password().error(([error]) => {
     const message = "Passwords do not match";
     return new Error(
       JSON.stringify({

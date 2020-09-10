@@ -71,7 +71,7 @@ type LoaderProps = {
 
 const Loader: React.FC<LoaderProps> = ({
   size = LoaderSizes.Medium,
-  color = Colors.White,
+  color = Colors.Pink,
 }) => {
   return (
     <StyledLoader

@@ -7,20 +7,20 @@ import {
 import StatusCodeEnum from "../models/enums/StatusCodeEnum";
 import IOrganization from '@matchstik/models/.dist/interfaces/IOrganization';
 import IOrganizationAPI, {
-  ICreateOrgRequest,
+  ICreateOrganizationRequest,
   ICreateOrgResponse,
-  IUpdateOrgRequest,
+  IUpdateOrganizationRequest,
   IUpdateOrgResponse,
   IListOrgsRequest,
   IListOrgsResponse,
-  IGetOrgRequest,
+  IGetOrganizationRequest,
   IGetOrgResponse,
-  IDeleteOrgRequest,
+  IDeleteOrganizationRequest,
   IDeleteOrgResponse,
 } from '../models/interfaces/IOrganizationAPI';
 import { IController } from './controller';
 
-const orgSchema = Joi.object().keys({
+const organizationSchema = Joi.object().keys({
   _id: Joi.string().optional(),
   userId: Joi.string().optional(),
   createdAt: Joi.date().optional(),
@@ -44,6 +44,7 @@ const orgSchema = Joi.object().keys({
 
 const authenticatedSchema = Joi.object().keys({
   userId: Joi.string().required(),
+  organizationId: Joi.string().required(),
 });
 
 export default class OrganizationController implements IOrganizationAPI {
@@ -55,12 +56,12 @@ export default class OrganizationController implements IOrganizationAPI {
     console.log(this.controller);
   }
 
-  public create = async (request: ICreateOrgRequest): Promise<ICreateOrgResponse> => {
+  public create = async (request: ICreateOrganizationRequest): Promise<ICreateOrgResponse> => {
     let response: ICreateOrgResponse;
 
     const schema = Joi.object().keys({
       auth: authenticatedSchema,
-      organization: orgSchema,
+      organization: organizationSchema,
     });
 
     const params = Joi.validate(request, schema);
@@ -80,7 +81,9 @@ export default class OrganizationController implements IOrganizationAPI {
     */
     const now = Date.now();
     organization.meta = {
+      createdBy: organization.userId,
       createdAt: now,
+      lastUpdatedBy: organization.userId,
       lastUpdatedAt: now,
     };
 
@@ -101,12 +104,12 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public update = async (request: IUpdateOrgRequest): Promise<IUpdateOrgResponse> => {
+  public update = async (request: IUpdateOrganizationRequest): Promise<IUpdateOrgResponse> => {
     let response: IUpdateOrgResponse;
 
     const schema = Joi.object().keys({
       userId: Joi.string().required(),
-      org: orgSchema,
+      organization: organizationSchema,
     });
 
     const params = Joi.validate(request, schema);
@@ -120,8 +123,6 @@ export default class OrganizationController implements IOrganizationAPI {
       };
       return response;
     }
-
-    organization.meta.lastUpdatedAt = Date.now();
 
     try {
       const newOrg = await this.storage.update(userId, organization);
@@ -176,10 +177,11 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public get = async (request: IGetOrgRequest): Promise<IGetOrgResponse> => {
+  public get = async (request: IGetOrganizationRequest): Promise<IGetOrgResponse> => {
     let response: IGetOrgResponse;
 
     const schema = Joi.object().keys({
+      auth: authenticatedSchema,
       organizationId: Joi.string().allow(null).required(),
     });
 
@@ -212,7 +214,7 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public delete = async (request: IDeleteOrgRequest): Promise<IDeleteOrgResponse> => {
+  public delete = async (request: IDeleteOrganizationRequest): Promise<IDeleteOrgResponse> => {
     let response: IDeleteOrgResponse;
 
     const schema = Joi.object().keys({
