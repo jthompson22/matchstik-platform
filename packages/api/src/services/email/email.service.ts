@@ -1,28 +1,23 @@
+import StatusCodeEnum from "@matchstik/models/.dist/enums/StatusCodeEnum";
+import { toError } from "@matchstik/models/.dist/interfaces/common";
+import * as IEmailService from '@matchstik/models/.dist/services/IEmailService';
 import * as nodemailer from "nodemailer";
 import nodemailerSendgrid from "nodemailer-sendgrid";
-import { SENDGRID_API_KEY, DEBUG_ENABLED } from "./../env";
-import IEmailService, {
-  ISendUserPasswordResetEmailRequest,
-  ISendUserPasswordResetEmailResponse,
-  ISendUserEmailVerificationEmailRequest,
-  ISendUserEmailVerificationEmailResponse
-} from "../models/interfaces/IEmailService";
-import { toError } from "../models/interfaces/common";
-import StatusCodeEnum from "../models/enums/StatusCodeEnum";
+import { DEBUG_ENABLED, SENDGRID_API_KEY } from "../../env";
 
-enum EEmailTemplates {
+enum EmailTemplatesEnum {
   PasswordReset = "Password Reset",
   VerifyEmail = 'Verify Email',
 }
 
-const html: Record<EEmailTemplates, (context: any) => string> = {
-  [EEmailTemplates.PasswordReset]: context =>
+const html: Record<EmailTemplatesEnum, (context: any) => string> = {
+  [EmailTemplatesEnum.PasswordReset]: context =>
     `A password reset was request for your account. <a href=${context.resetPasswordUrl}>Click here</a> to reset your password.`,
-  [EEmailTemplates.VerifyEmail]: context =>
+  [EmailTemplatesEnum.VerifyEmail]: context =>
     `<a href=${context.verifyEmailUrl}>Click here</a> to verify your Matchstik.io email address.`
 };
 
-export default class EmailService implements IEmailService {
+export default class EmailService implements IEmailService.IEmailServiceAPI {
   private mailer;
 
   constructor() {
@@ -44,7 +39,7 @@ export default class EmailService implements IEmailService {
   }
 
   private sendEmail = async (
-    template: EEmailTemplates,
+    template: EmailTemplatesEnum,
     subject: string,
     toAddress: string,
     context: any
@@ -76,7 +71,7 @@ export default class EmailService implements IEmailService {
    * User
    ****************************************************************************************/
 
-  // public queueUserWelcomeEmail = async (request: pb.QueueUserWelcomeEmailRequest): Promise<pb.google.protobuf.Empty> => {
+  // public queueUserWelcomeEmail = async (request: pb.IEmailService.QueueUserWelcomeEmailRequest): Promise<pb.google.protobuf.Empty> => {
   //   await this.sendEmail(
   //     'userWelcomeEmail',
   //     'Welcome to Matchstik',
@@ -93,14 +88,14 @@ export default class EmailService implements IEmailService {
   //   return response;
   // }
   public sendUserPasswordResetEmail = async (
-    request: ISendUserPasswordResetEmailRequest
-  ): Promise<ISendUserPasswordResetEmailResponse> => {
-    let response: ISendUserPasswordResetEmailResponse = {
+    request: IEmailService.ISendUserPasswordResetEmailRequest
+  ): Promise<IEmailService.ISendUserPasswordResetEmailResponse> => {
+    let response: IEmailService.ISendUserPasswordResetEmailResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
     try {
       await this.sendEmail(
-        EEmailTemplates.PasswordReset,
+        EmailTemplatesEnum.PasswordReset,
         "Matchstik - Reset Your Password",
         request.toAddress,
         {
@@ -117,14 +112,14 @@ export default class EmailService implements IEmailService {
   };
 
   public sendUserEmailVerificationEmail = async (
-    request: ISendUserEmailVerificationEmailRequest
-  ): Promise<ISendUserEmailVerificationEmailResponse> => {
-    let response: ISendUserEmailVerificationEmailResponse = {
+    request: IEmailService.ISendUserEmailVerificationEmailRequest
+  ): Promise<IEmailService.ISendUserEmailVerificationEmailResponse> => {
+    let response: IEmailService.ISendUserEmailVerificationEmailResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
     try {
       await this.sendEmail(
-        EEmailTemplates.VerifyEmail,
+        EmailTemplatesEnum.VerifyEmail,
         "Matchstik - Verify your account",
         request.toAddress,
         {
@@ -140,7 +135,7 @@ export default class EmailService implements IEmailService {
     return response;
   };
   
-  // public queueInviteToOrganizationEmailRequest = async (request: pb.QueueInviteToOrganizationEmailRequest): Promise<pb.google.protobuf.Empty> => {
+  // public IEmailService.queueInviteToOrganizationEmailRequest = async (request: pb.IEmailService.QueueInviteToOrganizationEmailRequest): Promise<pb.google.protobuf.Empty> => {
   //   await this.sendEmail(
   //     'inviteToOrganization',
   //     `Join ${request.orgName} on Matchstik`,

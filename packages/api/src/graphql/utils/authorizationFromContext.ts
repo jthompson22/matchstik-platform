@@ -1,5 +1,4 @@
-import { IAuthorizationData } from '../../models/interfaces/common';
-import IUser from '@matchstik/models/.dist/interfaces/IUser';
+import { IAuthorizationData } from '@matchstik/models/.dist/interfaces/common';
 
 export default function authorizationFromContext(context): IAuthorizationData {
   const { req: { user } }: { req: { user } } = context;

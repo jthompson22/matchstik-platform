@@ -1,9 +1,9 @@
-import { ApolloError } from 'apollo-server-express';
-import StatusCodeEnum from '../../models/enums/StatusCodeEnum';
-import authorizationDataFromContext from '../utils/authorizationFromContext';
-import controller from '../../controllers/controller';
 import IProject from '@matchstik/models/.dist/interfaces/IProject';
-import * as ProjectAPI from '../../models/interfaces/IProjectAPI'
+import StatusCodeEnum from '@matchstik/models/src/enums/StatusCodeEnum';
+import { ApolloError } from 'apollo-server-express';
+import controller from '../../controllers/controller';
+import * as ProjectAPI from '../../models/interfaces/IProjectAPI';
+import authorizationDataFromContext from '../utils/authorizationFromContext';
 
 export default {
   Query: {

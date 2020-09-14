@@ -1,24 +1,10 @@
-import Joi from 'joi';
-import OrganizationStore from '../stores/organization.store';
-import {
-  toError,
-  joiToError,
-} from '../models/interfaces/common';
-import StatusCodeEnum from "../models/enums/StatusCodeEnum";
+import StatusCodeEnum from "@matchstik/models/.dist/enums/StatusCodeEnum";
+import { joiToError, toError } from "@matchstik/models/.dist/interfaces/common";
 import IOrganization from '@matchstik/models/.dist/interfaces/IOrganization';
-import IOrganizationAPI, {
-  ICreateOrganizationRequest,
-  ICreateOrgResponse,
-  IUpdateOrganizationRequest,
-  IUpdateOrgResponse,
-  IListOrgsRequest,
-  IListOrgsResponse,
-  IGetOrganizationRequest,
-  IGetOrgResponse,
-  IDeleteOrganizationRequest,
-  IDeleteOrgResponse,
-} from '../models/interfaces/IOrganizationAPI';
-import { IController } from './controller';
+import * as IOrganizationService from '@matchstik/models/.dist/services/IOrganizationService';
+import Joi from 'joi';
+import { IAppServiceProxy } from '../appServiceProxy';
+import OrganizationStore from './organization.store';
 
 const organizationSchema = Joi.object().keys({
   _id: Joi.string().optional(),
@@ -47,17 +33,16 @@ const authenticatedSchema = Joi.object().keys({
   organizationId: Joi.string().required(),
 });
 
-export default class OrganizationController implements IOrganizationAPI {
+export default class OrganizationController implements IOrganizationService.IOrganizationServiceAPI {
   private storage = new OrganizationStore();
-  private controller;
+  private proxy: IAppServiceProxy;
 
-  constructor(controller: IController) {
-    this.controller = controller;
-    console.log(this.controller);
+  constructor(proxy: IAppServiceProxy) {
+    this.proxy = proxy;
   }
 
-  public create = async (request: ICreateOrganizationRequest): Promise<ICreateOrgResponse> => {
-    let response: ICreateOrgResponse;
+  public create = async (request: IOrganizationService.ICreateOrganizationRequest): Promise<IOrganizationService.ICreateOrganizationResponse> => {
+    let response: IOrganizationService.ICreateOrganizationResponse;
 
     const schema = Joi.object().keys({
       auth: authenticatedSchema,
@@ -65,7 +50,7 @@ export default class OrganizationController implements IOrganizationAPI {
     });
 
     const params = Joi.validate(request, schema);
-    const {  organization }: { organization: IOrganization } = params.value;
+    const { organization }: { organization: IOrganization } = params.value;
 
     if (params.error) {
       console.error(params.error);
@@ -104,8 +89,8 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public update = async (request: IUpdateOrganizationRequest): Promise<IUpdateOrgResponse> => {
-    let response: IUpdateOrgResponse;
+  public update = async (request: IOrganizationService.IUpdateOrganizationRequest): Promise<IOrganizationService.IUpdateOrganizationResponse> => {
+    let response: IOrganizationService.IUpdateOrganizationResponse;
 
     const schema = Joi.object().keys({
       userId: Joi.string().required(),
@@ -141,8 +126,8 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public list = async (request: IListOrgsRequest): Promise<IListOrgsResponse> => {
-    let response: IListOrgsResponse;
+  public list = async (request: IOrganizationService.IListOrganizationsRequest): Promise<IOrganizationService.IListOrganizationsResponse> => {
+    let response: IOrganizationService.IListOrganizationsResponse;
 
     const schema = Joi.object().keys({
       userId: Joi.string().optional(),
@@ -177,8 +162,8 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public get = async (request: IGetOrganizationRequest): Promise<IGetOrgResponse> => {
-    let response: IGetOrgResponse;
+  public get = async (request: IOrganizationService.IGetOrganizationRequest): Promise<IOrganizationService.IGetOrganizationResponse> => {
+    let response: IOrganizationService.IGetOrganizationResponse;
 
     const schema = Joi.object().keys({
       auth: authenticatedSchema,
@@ -214,8 +199,8 @@ export default class OrganizationController implements IOrganizationAPI {
     }
   }
 
-  public delete = async (request: IDeleteOrganizationRequest): Promise<IDeleteOrgResponse> => {
-    let response: IDeleteOrgResponse;
+  public delete = async (request: IOrganizationService.IDeleteOrganizationRequest): Promise<IOrganizationService.IDeleteOrganizationResponse> => {
+    let response: IOrganizationService.IDeleteOrganizationResponse;
 
     const schema = Joi.object().keys({
       userId: Joi.string().required(),

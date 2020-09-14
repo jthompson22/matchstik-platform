@@ -1,11 +1,10 @@
-import IUser from '@matchstik/models/.dist/interfaces/IUser';
 import {
   IRequest,
   IResponse,
-  IAuthenticatedRequest,
-} from './common';
+  // IAuthenticatedRequest,
+} from '../interfaces/common';
 
-export default interface IEmailService {
+export interface IEmailServiceAPI {
   sendUserPasswordResetEmail(request: ISendUserPasswordResetEmailRequest): Promise<ISendUserPasswordResetEmailResponse>
   sendUserEmailVerificationEmail(request: ISendUserEmailVerificationEmailRequest): Promise<ISendUserEmailVerificationEmailResponse>
 }
@@ -14,7 +13,7 @@ export default interface IEmailService {
 *  Emails
 ********************************************************************************/
 
-export interface ISendEmailRequest {
+export interface ISendEmailRequest extends IRequest {
   toAddress: string;
 }
 

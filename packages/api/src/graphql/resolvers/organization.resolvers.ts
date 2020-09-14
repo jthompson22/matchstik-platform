@@ -1,25 +1,18 @@
+import StatusCodeEnum from '@matchstik/models/.dist/enums/StatusCodeEnum';
 import IUser from '@matchstik/models/.dist/interfaces/IUser';
-import StatusCodeEnum from '../../models/enums/StatusCodeEnum';
+import * as IOrganizationService from '@matchstik/models/.dist/services/IOrganizationService';
 import {
   ApolloError,
-  AuthenticationError,
+  AuthenticationError
 } from 'apollo-server-express';
-import controller from '../../controllers/controller';
-import {
-  IUpdateOrganizationRequest,
-  IUpdateOrgResponse,
-  IGetOrganizationRequest,
-  IGetOrgResponse,
-  IDeleteOrganizationRequest,
-  IDeleteOrgResponse,
-} from '../../models/interfaces/IOrganizationAPI';
+import proxy from '../../services/appServiceProxy';
 
 export default {
   Query: { 
     async organization(parent, args, context) {
       const { req: { user } }: { req: { user: IUser } } = context;
 
-      const request: IGetOrganizationRequest = {
+      const request: IOrganizationService.IGetOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,
@@ -27,10 +20,10 @@ export default {
         organizationId: args.organizationId,
       }
 
-      let response: IGetOrgResponse;
+      let response: IOrganizationService.IGetOrganizationResponse;
 
       try {
-        response = await controller.organization.get(request);
+        response = await proxy.organization.get(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(response.error.message, response.status.toString());
@@ -55,7 +48,7 @@ export default {
         throw new AuthenticationError("Authorization Required."); 
       }
 
-      const request: IUpdateOrganizationRequest = {
+      const request: IOrganizationService.IUpdateOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,
@@ -63,10 +56,10 @@ export default {
         organization: args.organization,
       }
 
-      let response: IUpdateOrgResponse;
+      let response: IOrganizationService.IUpdateOrganizationResponse;
 
       try {
-        response = await controller.organization.update(request);
+        response = await proxy.organization.update(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(response.error.message, response.status.toString());
@@ -89,7 +82,7 @@ export default {
         throw new AuthenticationError("Authorization Required.");
       }
 
-      const request: IDeleteOrganizationRequest = {
+      const request: IOrganizationService.IDeleteOrganizationRequest = {
         auth: {
           userId: user._id,
           organizationId: user.organizationId,
@@ -97,10 +90,10 @@ export default {
         organizationId: args.organizationId,
       }
 
-      let response: IDeleteOrgResponse;
+      let response: IOrganizationService.IDeleteOrganizationResponse;
 
       try {
-        response = await controller.organization.delete(request);
+        response = await proxy.organization.delete(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(response.error.message, response.status.toString());

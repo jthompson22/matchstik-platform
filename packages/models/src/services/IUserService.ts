@@ -1,11 +1,11 @@
-import IUser from '@matchstik/models/.dist/interfaces/IUser';
+import IUser from '../interfaces/IUser';
 import {
   IRequest,
   IResponse,
   IAuthenticatedRequest,
-} from './common';
+} from '../interfaces/common';
 
-export default interface IUserAPI {
+export interface IUserServiceAPI {
   register(request: IRegisterUserRequest): Promise<IRegisterUserResponse>
   login(request: ILoginUserRequest): Promise<ILoginUserResponse>
   sendPasswordReset(request: ISendUserPasswordResetRequest): Promise<ISendUserPasswordResetResponse>

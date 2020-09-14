@@ -1,18 +1,18 @@
-import IOrganization from '@matchstik/models/.dist/interfaces/IOrganization';
+import IOrganization from '../interfaces/IOrganization';
 import {
   IRequest,
   IResponse,
   IAuthenticatedRequest,
   IAuthorizedRequest,
   IDeleteResponse,
-} from './common';
+} from '../interfaces/common';
 
-export default interface IOrganizationAPI {
-  create(request: ICreateOrganizationRequest): Promise<ICreateOrgResponse>;
-  update(request: IUpdateOrganizationRequest): Promise<IUpdateOrgResponse>;
-  list(request: IListOrgsRequest): Promise<IListOrgsResponse>;
-  get(request: IGetOrganizationRequest): Promise<IGetOrgResponse>;
-  delete(request: IDeleteOrganizationRequest): Promise<IDeleteOrgResponse>;
+export interface IOrganizationServiceAPI {
+  create(request: ICreateOrganizationRequest): Promise<ICreateOrganizationResponse>;
+  update(request: IUpdateOrganizationRequest): Promise<IUpdateOrganizationResponse>;
+  list(request: IListOrganizationsRequest): Promise<IListOrganizationsResponse>;
+  get(request: IGetOrganizationRequest): Promise<IGetOrganizationResponse>;
+  delete(request: IDeleteOrganizationRequest): Promise<IDeleteOrganizationResponse>;
 }
 
 /********************************************************************************
@@ -23,7 +23,7 @@ export interface ICreateOrganizationRequest extends IAuthenticatedRequest {
   organization: IOrganization;
 }
 
-export interface ICreateOrgResponse extends IResponse {
+export interface ICreateOrganizationResponse extends IResponse {
   organization?: IOrganization;
 }
 
@@ -35,7 +35,7 @@ export interface IUpdateOrganizationRequest extends IAuthorizedRequest {
   organization: IOrganization;
 }
 
-export interface IUpdateOrgResponse extends IResponse {
+export interface IUpdateOrganizationResponse extends IResponse {
   organization?: IOrganization;
 }
 
@@ -43,11 +43,11 @@ export interface IUpdateOrgResponse extends IResponse {
 *  List Organzations
 ********************************************************************************/
 
-export interface IListOrgsRequest extends IRequest {
+export interface IListOrganizationsRequest extends IRequest {
   userId: string;
 }
 
-export interface IListOrgsResponse extends IResponse {
+export interface IListOrganizationsResponse extends IResponse {
   organizations?: IOrganization[];
 }
 
@@ -59,7 +59,7 @@ export interface IGetOrganizationRequest extends IAuthorizedRequest {
   organizationId: string;
 }
 
-export interface IGetOrgResponse extends IResponse {
+export interface IGetOrganizationResponse extends IResponse {
   organization?: IOrganization;
 }
 
@@ -71,4 +71,4 @@ export interface IDeleteOrganizationRequest extends IAuthorizedRequest {
   organizationId: string;
 }
 
-export interface IDeleteOrgResponse extends IDeleteResponse {}
+export interface IDeleteOrganizationResponse extends IDeleteResponse {}

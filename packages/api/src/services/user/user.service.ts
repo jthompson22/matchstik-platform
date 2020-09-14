@@ -1,50 +1,27 @@
+import StatusCodeEnum from "@matchstik/models/.dist/enums/StatusCodeEnum";
+import { toError } from "@matchstik/models/.dist/interfaces/common";
+import IUser from "@matchstik/models/.dist/interfaces/IUser";
+import * as IEmailService from '@matchstik/models/.dist/services/IEmailService';
+import * as IOrganizationService from '@matchstik/models/.dist/services/IOrganizationService';
+import * as IUserService from '@matchstik/models/.dist/services/IUserService';
+import Joi from "joi";
 import jwt from "jsonwebtoken";
 import shortid from "shortid";
-import Joi from "joi";
 import uuid4 from "uuid/v4";
-import UserStore from "../stores/user.store";
-import IUser from "@matchstik/models/.dist/interfaces/IUser";
-import IOrganization from "@matchstik/models/.dist/interfaces/IOrganization";
-import { WEB_UI_URL } from '../env';
-import {
-  ICreateOrganizationRequest,
-  ICreateOrgResponse
-} from "../models/interfaces/IOrganizationAPI";
-import StatusCodeEnum from "../models/enums/StatusCodeEnum";
-import { toError } from "../models/interfaces/common";
-import { JWT_SECRET } from "../env";
-import { IController } from "./controller";
-import IUserAPI, {
-  IRegisterUserRequest,
-  ILoginUserRequest,
-  IRegisterUserResponse,
-  ILoginUserResponse,
-  IGetUserRequest,
-  IGetUserResponse,
-  ISendUserPasswordResetRequest,
-  ISendUserPasswordResetResponse,
-  IResetUserPasswordRequest,
-  IResetUserPasswordResponse,
-  ISendUserEmailVerificationRequest,
-  ISendUserEmailVerificationResponse,
-  IVerifyUserEmailRequest,
-  IVerifyUserEmailResponse
-} from "src/models/interfaces/IUserAPI";
-import {
-  ISendUserPasswordResetEmailRequest,
-  ISendUserEmailVerificationEmailRequest
-} from "src/models/interfaces/IEmailService";
+import { JWT_SECRET, WEB_UI_URL } from '../../env';
+import { IAppServiceProxy } from "../appServiceProxy";
+import UserStore from "./user.store";
 
 const authenticatedSchema = Joi.object().keys({
   userId: Joi.string().required()
 });
 
-export default class UserController implements IUserAPI {
+export default class UserController implements IUserService.IUserServiceAPI {
   private storage = new UserStore();
-  private controller;
+  private proxy: IAppServiceProxy;
 
-  constructor(controller: IController) {
-    this.controller = controller;
+  constructor(proxy: IAppServiceProxy) {
+    this.proxy = proxy;
   }
 
   private generateJWT = (user: IUser): string => {
@@ -59,9 +36,9 @@ export default class UserController implements IUserAPI {
   };
 
   public register = async (
-    request: IRegisterUserRequest
-  ): Promise<IRegisterUserResponse> => {
-    let response: IRegisterUserResponse = {
+    request: IUserService.IRegisterUserRequest
+  ): Promise<IUserService.IRegisterUserResponse> => {
+    let response: IUserService.IRegisterUserResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
 
@@ -142,7 +119,7 @@ export default class UserController implements IUserAPI {
      * and set the organizationId on the user
      */
     try {
-      const request: ICreateOrganizationRequest = {
+      const request: IOrganizationService.ICreateOrganizationRequest = {
         auth: {
           userId: user._id
         },
@@ -156,7 +133,7 @@ export default class UserController implements IUserAPI {
         }
       };
 
-      const response: ICreateOrgResponse = await this.controller.organization.create(
+      const response: IOrganizationService.ICreateOrganizationResponse = await this.proxy.organization.create(
         request
       );
       const { organization } = response;
@@ -173,7 +150,7 @@ export default class UserController implements IUserAPI {
      * Send email verification email
      */
     try {
-      const request: ISendUserEmailVerificationRequest = {
+      const request: IUserService.ISendUserEmailVerificationRequest = {
         auth: {
           userId: user._id
         },
@@ -196,9 +173,9 @@ export default class UserController implements IUserAPI {
   };
 
   public login = async (
-    request: ILoginUserRequest
-  ): Promise<ILoginUserResponse> => {
-    let response: ILoginUserResponse;
+    request: IUserService.ILoginUserRequest
+  ): Promise<IUserService.ILoginUserResponse> => {
+    let response: IUserService.ILoginUserResponse;
 
     const schema = Joi.object().keys({
       email: Joi.string()
@@ -280,9 +257,9 @@ export default class UserController implements IUserAPI {
   };
 
   public sendPasswordReset = async (
-    request: ISendUserPasswordResetRequest
-  ): Promise<ISendUserPasswordResetResponse> => {
-    let response: ISendUserPasswordResetResponse = {
+    request: IUserService.ISendUserPasswordResetRequest
+  ): Promise<IUserService.ISendUserPasswordResetResponse> => {
+    let response: IUserService.ISendUserPasswordResetResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
 
@@ -311,12 +288,12 @@ export default class UserController implements IUserAPI {
       );
 
       if (user) {
-        const sendEmailRequest: ISendUserPasswordResetEmailRequest = {
+        const sendEmailRequest: IEmailService.ISendUserPasswordResetEmailRequest = {
           toAddress: user.email,
           resetPasswordUrl: `${WEB_UI_URL}/reset-password?code=${resetPasswordCode}`
         };
 
-        await this.controller.email.sendUserPasswordResetEmail(
+        await this.proxy.email.sendUserPasswordResetEmail(
           sendEmailRequest
         );
       }
@@ -332,9 +309,9 @@ export default class UserController implements IUserAPI {
   };
 
   public resetPassword = async (
-    request: IResetUserPasswordRequest
-  ): Promise<IResetUserPasswordResponse> => {
-    let response: IResetUserPasswordResponse = {
+    request: IUserService.IResetUserPasswordRequest
+  ): Promise<IUserService.IResetUserPasswordResponse> => {
+    let response: IUserService.IResetUserPasswordResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
 
@@ -347,7 +324,7 @@ export default class UserController implements IUserAPI {
     const {
       resetPasswordCode,
       password
-    }: IResetUserPasswordRequest = params.value;
+    }: IUserService.IResetUserPasswordRequest = params.value;
 
     if (params.error) {
       console.error(params.error);
@@ -379,9 +356,9 @@ export default class UserController implements IUserAPI {
   };
 
   public sendEmailVerification = async (
-    request: ISendUserEmailVerificationRequest
-  ): Promise<ISendUserEmailVerificationResponse> => {
-    let response: ISendUserEmailVerificationResponse = {
+    request: IUserService.ISendUserEmailVerificationRequest
+  ): Promise<IUserService.ISendUserEmailVerificationResponse> => {
+    let response: IUserService.ISendUserEmailVerificationResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
 
@@ -391,7 +368,7 @@ export default class UserController implements IUserAPI {
     });
 
     const params = Joi.validate(request, schema);
-    const { email }: ISendUserEmailVerificationRequest = params.value;
+    const { email }: IUserService.ISendUserEmailVerificationRequest = params.value;
 
     if (params.error) {
       console.error(params.error);
@@ -409,12 +386,12 @@ export default class UserController implements IUserAPI {
       );
 
       if (user) {
-        const request: ISendUserEmailVerificationEmailRequest = {
+        const request: IEmailService.ISendUserEmailVerificationEmailRequest = {
           toAddress: user.email,
           verifyEmailUrl: `${WEB_UI_URL}/verify-email?code=${verifyEmailCode}`
         };
 
-        await this.controller.email.sendUserEmailVerificationEmail(request);
+        await this.proxy.email.sendUserEmailVerificationEmail(request);
       }
     } catch (e) {
       console.error(e);
@@ -428,9 +405,9 @@ export default class UserController implements IUserAPI {
   };
 
     public verifyEmail = async (
-    request: IVerifyUserEmailRequest
-  ): Promise<IVerifyUserEmailResponse> => {
-    let response: IVerifyUserEmailResponse = {
+    request: IUserService.IVerifyUserEmailRequest
+  ): Promise<IUserService.IVerifyUserEmailResponse> => {
+    let response: IUserService.IVerifyUserEmailResponse = {
       status: StatusCodeEnum.UNKNOWN_CODE
     };
 
@@ -441,7 +418,7 @@ export default class UserController implements IUserAPI {
     const params = Joi.validate(request, schema);
     const {
       verifyEmailCode,
-    }: IVerifyUserEmailRequest = params.value;
+    }: IUserService.IVerifyUserEmailRequest = params.value;
 
     if (params.error) {
       console.error(params.error);
@@ -475,8 +452,8 @@ export default class UserController implements IUserAPI {
     return response;
   };
 
-  public get = async (request: IGetUserRequest): Promise<IGetUserResponse> => {
-    let response: IGetUserResponse;
+  public get = async (request: IUserService.IGetUserRequest): Promise<IUserService.IGetUserResponse> => {
+    let response: IUserService.IGetUserResponse;
 
     const schema = Joi.object().keys({
       auth: authenticatedSchema,

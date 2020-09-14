@@ -1,4 +1,4 @@
-import StatusCodeEnum from './../enums/StatusCodeEnum';
+import StatusCodeEnum from '../enums/StatusCodeEnum';
 
 export interface IRequest {}
 

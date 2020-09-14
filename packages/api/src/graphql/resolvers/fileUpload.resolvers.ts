@@ -1,10 +1,10 @@
-import StatusCodeEnum from '../../models/enums/StatusCodeEnum';
-import IFile  from '../../models/interfaces/IFile';
+import StatusCodeEnum from '@matchstik/models/.dist/enums/StatusCodeEnum';
+import IFile from '@matchstik/models/src/interfaces/IFile';
 import {
   ApolloError,
-  AuthenticationError,
+  AuthenticationError
 } from 'apollo-server-express';
-import fileUploadService from '../../services/fileUpload.service';
+import fileUploadService from '../../services/file-upload/fileUpload.service';
 
 function streamToBuffer(stream): Promise<Buffer> {
   return new Promise((resolve, reject) => {

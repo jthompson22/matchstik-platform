@@ -1,9 +1,9 @@
-import IFile from '../models/interfaces/IFile';
 import { Storage } from '@google-cloud/storage';
+import IFile from '@matchstik/models/.dist/interfaces/IFile';
 import { Duplex } from 'stream';
 import {
-  GCP_BUCKET_NAME,
-} from '../env';
+  GCP_BUCKET_NAME
+} from '../../env';
 
 if(!GCP_BUCKET_NAME) {
   console.error('No Storage bucket configured');

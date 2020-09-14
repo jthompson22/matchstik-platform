@@ -1,39 +1,26 @@
+import StatusCodeEnum from '@matchstik/models/.dist/enums/StatusCodeEnum';
 import IUser from '@matchstik/models/.dist/interfaces/IUser';
-import StatusCodeEnum from '../../models/enums/StatusCodeEnum';
+import * as IUserService from '@matchstik/models/.dist/services/IUserService';
 import {
-  ApolloError,
+  ApolloError
 } from 'apollo-server-express';
-import controller from '../../controllers/controller';
-import {
-  IGetUserRequest,
-  IGetUserResponse,
-  IRegisterUserRequest,
-  IRegisterUserResponse,
-  ILoginUserRequest,
-  ILoginUserResponse,
-  ISendUserPasswordResetRequest,
-  ISendUserPasswordResetResponse,
-  IResetUserPasswordRequest,
-  IResetUserPasswordResponse,
-  IVerifyUserEmailRequest,
-  IVerifyUserEmailResponse,
-} from "../../models/interfaces/IUserAPI";
+import proxy from '../../services/appServiceProxy';
 
 export default {
   Query: {
     async user(parent, args, context) {
       const { req: { user } }: { req: { user: IUser } } = context;
 
-      const request: IGetUserRequest = {
+      const request: IUserService.IGetUserRequest = {
         auth: {
           userId: user._id,
         }
       };
 
-      let response: IGetUserResponse;
+      let response: IUserService.IGetUserResponse;
 
       try {
-        response = await controller.user.get(request);
+        response = await proxy.user.get(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(
@@ -56,7 +43,7 @@ export default {
         user: { firstName, lastName, email, phoneNumber, password }
       } = args;
 
-      const request: IRegisterUserRequest = {
+      const request: IUserService.IRegisterUserRequest = {
         firstName,
         lastName,
         email,
@@ -64,10 +51,10 @@ export default {
         password
       };
 
-      let response: IRegisterUserResponse;
+      let response: IUserService.IRegisterUserResponse;
 
       try {
-        response = await controller.user.register(request);
+        response = await proxy.user.register(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(
@@ -84,15 +71,15 @@ export default {
     async login(parent, args, context) {
       const { email, password } = args;
 
-      const request: ILoginUserRequest = {
+      const request: IUserService.ILoginUserRequest = {
         email,
         password
       };
 
-      let response: ILoginUserResponse;
+      let response: IUserService.ILoginUserResponse;
 
       try {
-        response = await controller.user.login(request);
+        response = await proxy.user.login(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(
@@ -108,14 +95,14 @@ export default {
     },
     async sendPasswordReset(parent, args, context) {
       const { email } = args;
-      const request: ISendUserPasswordResetRequest = {
+      const request: IUserService.ISendUserPasswordResetRequest = {
         email
       };
 
-      let response: ISendUserPasswordResetResponse;
+      let response: IUserService.ISendUserPasswordResetResponse;
 
       try {
-        response = await controller.user.sendPasswordReset(request);
+        response = await proxy.user.sendPasswordReset(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(
@@ -132,15 +119,15 @@ export default {
     async resetPassword(parent, args, context) {
       const { resetPasswordCode, password } = args;
 
-      const request: IResetUserPasswordRequest = {
+      const request: IUserService.IResetUserPasswordRequest = {
         resetPasswordCode,
         password
       };
 
-      let response: IResetUserPasswordResponse;
+      let response: IUserService.IResetUserPasswordResponse;
 
       try {
-        response = await controller.user.resetPassword(request);
+        response = await proxy.user.resetPassword(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(
@@ -157,14 +144,14 @@ export default {
     async verifyEmail(parent, args, context) {
       const { verifyEmailCode } = args;
 
-      const request: IVerifyUserEmailRequest = {
+      const request: IUserService.IVerifyUserEmailRequest = {
         verifyEmailCode,
       };
 
-      let response: IVerifyUserEmailResponse;
+      let response: IUserService.IVerifyUserEmailResponse;
 
       try {
-        response = await controller.user.verifyEmail(request);
+        response = await proxy.user.verifyEmail(request);
 
         if (response.status !== StatusCodeEnum.OK) {
           throw new ApolloError(

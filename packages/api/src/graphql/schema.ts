@@ -1,13 +1,11 @@
-import gql from "graphql-tag";
-import { merge } from "lodash";
-import { makeExecutableSchema } from "graphql-tools";
-import { GraphQLUpload } from "graphql-upload"
 import { GraphQLDateTime } from 'graphql-iso-date';
-import userResolvers from "./resolvers/user.resolvers";
+import gql from "graphql-tag";
+import { makeExecutableSchema } from "graphql-tools";
+import { GraphQLUpload } from "graphql-upload";
+import { merge } from "lodash";
 import fileUploadResolvers from "./resolvers/fileUpload.resolvers";
 import organizationResolvers from "./resolvers/organization.resolvers";
-import fileResolvers from "./resolvers/file.resolvers";
-import projectResolvers from "./resolvers/project.resolvers";
+import userResolvers from "./resolvers/user.resolvers";
 
 const schema = gql`
   scalar Upload
@@ -69,56 +67,6 @@ const schema = gql`
   }
 
   ######################################################################
-  # Project
-  ######################################################################
-
-  type Project {
-    _id: String
-    organizationId: String
-    active: Boolean
-    name: String
-    description: String
-    fileIds: [String]
-    meta: MetaData
-  }
-
-  input ProjectInput {
-    _id: String
-    organizationId: String
-    name: String
-    description: String
-  }
-
-  ######################################################################
-  # Transcription
-  ######################################################################
-
-  type Transcription {
-    results: [Result]
-  }
-
-  type Result {
-    alternatives: [Alternative]
-  }
-
-  type Alternative {
-    transcript: String
-    confidence: Float
-    words: [Word]
-  }
-
-  type Word {
-    startTime: Time
-    endTime: Time
-    word: String
-  }
-
-  type Time {
-    seconds: String
-    nanos: Int
-  }
-
-  ######################################################################
   # Miscellaneous
   ######################################################################
 
@@ -143,14 +91,13 @@ const schema = gql`
   type Query {
     # User
     user: User
-    file: Transcription
 
     # Organization
     organization(organizationId: String): Organization
 
     # Project
-    project(projectId: String): Project
-    projects: [Project]
+    # project(projectId: String): Project
+    # projects: [Project]
   }
 
   type Mutation {
@@ -168,16 +115,14 @@ const schema = gql`
     # Miscellaneous
     uploadFiles(files: [Upload!]!): [File!]!
 
-    # Project
-    createProject(project: ProjectInput!): Project
+    # # Project
+    # createProject(project: ProjectInput!): Project
   }
 `;
 
 export const resolvers = merge(
   userResolvers,
   organizationResolvers,
-  projectResolvers,
-  fileResolvers,
   fileUploadResolvers,
 );
 
